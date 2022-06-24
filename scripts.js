@@ -4,30 +4,57 @@ function computerPlay() {
     return options[rand];
 }
 
+
 // Return 0 if a tie, 1 if player wins, and 2 if computer wins.
 function playRound(pSelection, cSelection) {
+    let winMessage;
+
+    if (pWins >= 5 || cWins >= 5) {
+        pWins = 0;
+        cWins = 0;
+    }
+    
     if (pSelection === cSelection) {
-        console.log("It's a tie. Play again.");
-        return 0;
+        winMessage = "It's a tie. Play again.";
     } else if ( (pSelection === 'Rock' && cSelection === 'Scissors') ||
         (pSelection === 'Paper' && cSelection === 'Rock') ||
         (pSelection === 'Scissors' && cSelection === 'Paper') ) {
-        console.log(`You win! ${pSelection} ` + `beats ${cSelection}.`);
-        return 1;
+        winMessage = `You win! ${pSelection} ` + `beats ${cSelection}.`;
+        pWins++;
     } else {
-        console.log(`You lose! ${cSelection} ` + `beats ${pSelection}.`);
-        return 2;
+        winMessage = `You lose! ${cSelection} ` + `beats ${pSelection}.`;
+        cWins++;
     }
+
+    if (pWins === 5)
+        message.textContent = 'YOU WON!!!';
+    else if (cWins === 5)
+        message.textContent = 'YOU LOST! =(';
+    else
+        message.textContent = winMessage;
+
+    score.textContent = `${pWins} : ${cWins}`;
 }
 
 const buttons = document.querySelectorAll('button');
+const body = document.querySelector('body');
+const div = document.createElement('div');
+body.appendChild(div);
 
+const score = document.createElement('p');
+const message = document.createElement('p');
+div.appendChild(message);
+div.appendChild(score);
 
 let playerSelection;
+let pWins = 0;
+let cWins = 0;
+score.textContent = `${pWins} : ${cWins}`;
+
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
         playerSelection = button.textContent;
-        game(1);
+        playRound(playerSelection, computerPlay());
     });
 });
 
@@ -46,12 +73,12 @@ function game(numOfRounds) {
             cWins++;
     }
 
-    if (pWins > cWins)
-        console.log('YOU WON!');
-    else if (pWins < cWins)
-        console.log('YOU LOST!');
-    else
-        console.log('IT\'S A TIE');
+    // if (pWins > cWins)
+    //     p.textContent = 'YOU WON!';
+    // else if (pWins < cWins)
+    //     p.textContent = 'YOU LOST!';
+    // else
+    //     p.textContent = 'IT\'S A TIE';
 }
 
 
