@@ -1,7 +1,6 @@
 # Rock Paper Scissors
 
-This project is an assignment from The Odin Project course.
-[https://www.theodinproject.com/](https://www.theodinproject.com/)
+This project is an assignment from The Odin Project course ([https://www.theodinproject.com/](https://www.theodinproject.com/)).
 
 
 
